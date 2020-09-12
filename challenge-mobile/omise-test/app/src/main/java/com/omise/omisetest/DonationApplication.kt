@@ -1,7 +1,7 @@
 package com.omise.omisetest
 
-import android.app.Application
 import android.content.pm.PackageManager
+import androidx.multidex.MultiDexApplication
 import com.omise.omisetest.common.dependencyinjection.application.ApplicationComponent
 import com.omise.omisetest.common.dependencyinjection.application.ApplicationModule
 import com.omise.omisetest.common.dependencyinjection.application.DaggerApplicationComponent
@@ -11,7 +11,7 @@ import timber.log.Timber
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
-class DonationApplication: Application() {
+class DonationApplication: MultiDexApplication() {
     private lateinit var mApplicationComponent: ApplicationComponent
 
     @Inject
