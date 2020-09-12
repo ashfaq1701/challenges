@@ -11,4 +11,6 @@ class CharitiesViewModel(application: DonationApplication): BaseViewModel(applic
     init {
         getViewModelComponent().inject(this)
     }
+
+
 }

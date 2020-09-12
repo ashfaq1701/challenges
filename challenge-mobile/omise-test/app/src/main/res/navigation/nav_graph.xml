@@ -11,26 +11,53 @@
         android:label="CharitiesScreen"
         tools:layout="@layout/charities_screen">
         <action
-            android:id="@+id/action_charitiesScreen_to_donationSuccessfulScreen"
-            app:destination="@id/donationSuccessfulScreen"
-            app:popUpTo="@id/charitiesScreen"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_charitiesScreen_to_connectionErrorScreen"
+            app:destination="@id/connectionErrorScreen"
+            app:clearTask="true" />
+        <action
+            android:id="@+id/action_charitiesScreen_to_serverErrorScreen"
+            app:destination="@id/serverErrorScreen"
+            app:clearTask="true" />
+
     </fragment>
+
     <fragment
         android:id="@+id/donationScreen"
         android:name="com.omise.omisetest.screens.donations.DonationScreen"
         android:label="DonationScreen"
         tools:layout="@layout/donation_screen">
         <action
-            android:id="@+id/action_donationScreen_to_charitiesScreen"
-            app:destination="@id/charitiesScreen"
-            app:popUpTo="@id/donationScreen"
+            android:id="@+id/action_donationScreen_to_donationSuccessfulScreen"
+            app:destination="@id/donationSuccessfulScreen"
+            app:popUpTo="@id/charitiesScreen"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_donationScreen_to_connectionErrorScreen"
+            app:destination="@id/connectionErrorScreen"
+            app:popUpTo="@id/charitiesScreen"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_donationScreen_to_serverErrorScreen"
+            app:destination="@id/serverErrorScreen"
+            app:popUpTo="@id/charitiesScreen"
+            app:popUpToInclusive="true"/>
     </fragment>
+
     <fragment
         android:id="@+id/donationSuccessfulScreen"
         android:name="com.omise.omisetest.screens.donationSuccessful.DonationSuccessfulScreen"
         android:label="DonationSuccessfulScreen"
-        tools:layout="@layout/donation_successful_screen">
-    </fragment>
+        tools:layout="@layout/donation_successful_screen" />
+
+    <fragment
+        android:id="@+id/connectionErrorScreen"
+        android:name="com.omise.omisetest.screens.connectionError.ConnectionErrorScreen"
+        android:label="ConnectionErrorScreen"
+        tools:layout="@layout/connection_error_screen" />
+
+    <fragment
+        android:id="@+id/serverErrorScreen"
+        android:name="com.omise.omisetest.screens.serverError.ServerErrorScreen"
+        android:label="ServerErrorScreen"
+        tools:layout="@layout/server_error_screen" />
 </navigation>

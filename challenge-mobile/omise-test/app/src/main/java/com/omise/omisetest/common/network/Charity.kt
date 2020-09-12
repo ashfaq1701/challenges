@@ -1,5 +1,6 @@
 package com.omise.omisetest.common.network
 
+import com.omise.omisetest.screens.charities.Charity
 import com.squareup.moshi.Json
 
 data class Charity (
@@ -7,4 +8,10 @@ data class Charity (
     val name: String,
     @Json(name = "logo_url")
     val logoUrl: String
-)
+) {
+    fun toRepositoryLevel() = Charity (
+        id = id,
+        name = name,
+        logoUrl = logoUrl
+    )
+}
