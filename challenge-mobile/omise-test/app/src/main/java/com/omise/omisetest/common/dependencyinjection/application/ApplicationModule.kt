@@ -11,11 +11,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule() {
-    companion object {
-        val BASE_URL = "http://localhost:8080/"
-    }
-
+class ApplicationModule(private val baseUrl: String) {
     @Provides
     fun getMoshi(): Moshi {
         return Moshi.Builder()
@@ -27,7 +23,7 @@ class ApplicationModule() {
     fun getRetrofit(moshi: Moshi): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .build()
     }
 
