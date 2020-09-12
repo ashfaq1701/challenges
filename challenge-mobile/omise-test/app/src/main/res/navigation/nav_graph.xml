@@ -13,11 +13,13 @@
         <action
             android:id="@+id/action_charitiesScreen_to_connectionErrorScreen"
             app:destination="@id/connectionErrorScreen"
-            app:clearTask="true" />
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_charitiesScreen_to_serverErrorScreen"
             app:destination="@id/serverErrorScreen"
-            app:clearTask="true" />
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
 
     </fragment>
 
