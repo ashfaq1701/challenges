@@ -4,11 +4,16 @@ import android.app.Application
 import com.omise.omisetest.common.dependencyinjection.application.ApplicationComponent
 import com.omise.omisetest.common.dependencyinjection.application.ApplicationModule
 import com.omise.omisetest.common.dependencyinjection.application.DaggerApplicationComponent
+import com.omise.omisetest.common.network.DonationsApiService
 
 import timber.log.Timber
+import javax.inject.Inject
 
 class DonationApplication: Application() {
     private lateinit var mApplicationComponent: ApplicationComponent
+
+    @Inject
+    lateinit var mDonationsApiService: DonationsApiService
 
     override fun onCreate() {
         super.onCreate()
@@ -17,11 +22,11 @@ class DonationApplication: Application() {
         }
         mApplicationComponent = DaggerApplicationComponent.builder()
             .applicationModule(
-                ApplicationModule(this)
+                ApplicationModule()
             )
             .build()
         mApplicationComponent.inject(this)
     }
 
-    fun getApplicationComponent(): ApplicationComponent = mApplicationComponent
+    fun getDonationsApiService() = mDonationsApiService
 }
