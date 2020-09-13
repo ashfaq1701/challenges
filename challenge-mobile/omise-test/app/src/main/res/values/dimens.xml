@@ -1,3 +1,15 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="home_margins">20dp</dimen>
+    <dimen name="home_margins_land">20dp</dimen>
+    <dimen name="charity_grid_height">30dp</dimen>
+    <dimen name="charity_grid_vertical_margins">8dp</dimen>
+    <dimen name="charity_grid_horizontal_margin">16dp</dimen>
+    <dimen name="charity_grid_title_size">20sp</dimen>
+    <dimen name="charity_cover_horizontal_margin">8dp</dimen>
+    <dimen name="charity_grid_cover_height">170dp</dimen>
+    <dimen name="charity_grid_cover_padding">2dp</dimen>
+    <dimen name="charity_grid_land_cover_width">200dp</dimen>
+    <dimen name="charity_grid_land_cover_height">150dp</dimen>
+    <dimen name="charity_grid_land_title_margin_start">40dp</dimen>
 </resources>

@@ -28,11 +28,11 @@
 
             <ImageView
                 android:id="@+id/charity_image"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/charity_grid_cover_height"
+                android:layout_width="@dimen/charity_grid_land_cover_width"
+                android:layout_height="@dimen/charity_grid_land_cover_height"
                 android:adjustViewBounds="true"
-                android:padding="@dimen/charity_grid_cover_padding"
                 android:layout_marginHorizontal="@dimen/charity_cover_horizontal_margin"
+                android:padding="@dimen/charity_grid_cover_padding"
                 android:scaleType="fitCenter"
                 app:imageUrl="@{charity.logoUrl}"
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,17 +42,15 @@
             <TextView
                 android:id="@+id/charity_name"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/charity_grid_height"
-                android:layout_marginStart="@dimen/charity_grid_horizontal_margin"
-                android:layout_marginTop="@dimen/charity_grid_vertical_margins"
-                android:layout_marginBottom="@dimen/charity_grid_vertical_margins"
+                android:layout_height="@dimen/charity_grid_land_cover_height"
                 android:textColor="@color/colorPrimaryDark"
+                android:layout_marginStart="@dimen/charity_grid_land_title_margin_start"
                 android:textSize="@dimen/charity_grid_title_size"
                 app:charityString="@{charity}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/charity_image"
-                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintTop_toTopOf="@id/charity_image"
+                app:layout_constraintStart_toEndOf="@id/charity_image"
+                app:layout_constraintBottom_toBottomOf="@id/charity_image"
+                android:gravity="center"
                 tools:text="Wednesday" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

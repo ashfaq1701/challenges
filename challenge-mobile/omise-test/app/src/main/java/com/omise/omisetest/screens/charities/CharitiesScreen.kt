@@ -30,6 +30,7 @@ class CharitiesScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.title = "Charities"
         dataBinding = DataBindingUtil.inflate(
             inflater, R.layout.charities_screen, container, false)
         dataBinding.charitiesScreenViewModel = viewModel
