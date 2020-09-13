@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.R
 import com.omise.omisetest.databinding.CharitiesScreenBinding
+import timber.log.Timber
 
 class CharitiesScreen : Fragment() {
     private val viewModel: CharitiesViewModel by lazy {
@@ -23,16 +26,28 @@ class CharitiesScreen : Fragment() {
 
     private lateinit var dataBinding: CharitiesScreenBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dataBinding = DataBindingUtil.inflate(inflater, R.layout.charities_screen, container, false)
+        dataBinding = DataBindingUtil.inflate(
+            inflater, R.layout.charities_screen, container, false)
         dataBinding.charitiesScreenViewModel = viewModel
-        return inflater.inflate(R.layout.charities_screen, container, false)
+
+        val adapter = CharitiesAdapter(CharityListener { charityId ->
+            viewModel.onCharityClicked(charityId)
+        })
+        dataBinding.charitiesList.adapter = adapter
+
+        viewModel.charities.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+                Timber.d("Submitting List ${adapter.currentList.size} items")
+            }
+        })
+
+        dataBinding.setLifecycleOwner(this)
+
+        return dataBinding.root
     }
 }

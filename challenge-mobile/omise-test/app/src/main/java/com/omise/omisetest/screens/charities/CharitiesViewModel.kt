@@ -9,6 +9,7 @@ import com.omise.omisetest.common.viewModel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
@@ -33,21 +34,22 @@ class CharitiesViewModel(application: DonationApplication): BaseViewModel(applic
             withContext(Dispatchers.IO) {
                 try {
                     _charities.postValue(charitiesRepository.getCharities())
-                    Timber.d("${_charities.value!!.size} charities has been fetched")
                     _status.postValue(ApiStatus.DONE)
                 } catch (ex: Exception) {
                     when (ex) {
                         is IOException -> {
                             _status.postValue(ApiStatus.NoInternet)
-                            Timber.d("No internet connection ${ex.message}")
                         }
                         else -> {
                             _status.postValue(ApiStatus.ERROR)
-                            Timber.d("Something is wrong")
                         }
                     }
                 }
             }
         }
+    }
+
+    fun onCharityClicked(charityId: Int) {
+
     }
 }
