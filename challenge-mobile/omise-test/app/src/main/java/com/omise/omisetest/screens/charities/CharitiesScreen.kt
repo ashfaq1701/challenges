@@ -45,7 +45,7 @@ class CharitiesScreen : Fragment() {
 
         viewModel.charities.observe(viewLifecycleOwner, Observer {
             it?.let {
-                Timber.d("Submitting List ${adapter.currentList.size} items")
+                adapter.submitList(it)
             }
         })
 
