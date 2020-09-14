@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.common.globals.ApiStatus
 import com.omise.omisetest.common.viewModel.BaseViewModel
-import com.omise.omisetest.models.Charity
+import com.omise.omisetest.common.models.Charity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -1,4 +1,4 @@
-package com.omise.omisetest.models
+package com.omise.omisetest.common.models
 
 import java.io.Serializable
 

@@ -35,7 +35,7 @@
 
         <argument
             android:name="selectedCharity"
-            app:argType="com.omise.omisetest.models.Charity" />
+            app:argType="com.omise.omisetest.common.models.Charity" />
 
         <action
             android:id="@+id/action_donationScreen_to_donationSuccessfulScreen"

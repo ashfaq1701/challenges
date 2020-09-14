@@ -7,7 +7,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.omise.omisetest.R
-import com.omise.omisetest.models.Charity
+import com.omise.omisetest.common.models.Charity
 
 @BindingAdapter("charityString")
 fun TextView.setSleepQualityString(item: Charity?) {

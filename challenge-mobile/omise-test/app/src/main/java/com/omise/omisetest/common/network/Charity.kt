@@ -1,6 +1,6 @@
 package com.omise.omisetest.common.network
 
-import com.omise.omisetest.models.Charity
+import com.omise.omisetest.common.models.Charity
 import com.squareup.moshi.Json
 
 data class Charity (

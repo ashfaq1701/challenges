@@ -1,7 +1,7 @@
 package com.omise.omisetest.screens.charities
 
 import com.omise.omisetest.common.network.DonationsApiService
-import com.omise.omisetest.models.Charity
+import com.omise.omisetest.common.models.Charity
 
 class CharitiesRepository(private val donationsApiService: DonationsApiService) {
     suspend fun getCharities(): List<Charity> {

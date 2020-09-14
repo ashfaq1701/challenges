@@ -6,7 +6,7 @@
     <data>
         <variable
             name="charity"
-            type="com.omise.omisetest.models.Charity" />
+            type="com.omise.omisetest.common.models.Charity" />
         <variable
             name="clickListener"
             type="com.omise.omisetest.screens.charities.CharityListener" />
