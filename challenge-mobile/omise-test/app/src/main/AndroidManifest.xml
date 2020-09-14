@@ -17,6 +17,7 @@
         tools:targetApi="n">
 
         <meta-data android:name="api_base_path" android:value="http://192.168.1.111:8080/" />
+        <meta-data android:name="omise_api_public_key" android:value="pkey_test_5dx6f301kyw8hrjjrtk" />
 
         <activity
             android:name=".activities.MainActivity"

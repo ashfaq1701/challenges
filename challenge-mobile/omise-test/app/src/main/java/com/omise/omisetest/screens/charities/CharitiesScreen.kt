@@ -13,11 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.R
+import com.omise.omisetest.common.fragment.BaseFragment
 import com.omise.omisetest.common.globals.ApiStatus
 import com.omise.omisetest.databinding.CharitiesScreenBinding
 import timber.log.Timber
 
-class CharitiesScreen : Fragment() {
+class CharitiesScreen : BaseFragment() {
     private val viewModel: CharitiesViewModel by lazy {
         activity?.let {
             val application = it.application as DonationApplication
@@ -28,6 +29,11 @@ class CharitiesScreen : Fragment() {
     }
 
     private lateinit var dataBinding: CharitiesScreenBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getPresentationComponent().inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -36,5 +36,74 @@
             app:layout_constraintTop_toBottomOf="@id/donation_cover"
             tools:text="Donation for child"
             app:charityString="@{donationScreenViewModel.charity}" />
+
+        <co.omise.android.ui.CreditCardEditText
+            android:id="@+id/cardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/donationTxt"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="@dimen/donation_screen_header_margin"
+            android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+            android:hint="@string/credit_card_number_label" />
+
+        <co.omise.android.ui.CardNameEditText
+            android:id="@+id/cardOwnerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cardNumber"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="@dimen/donation_screen_header_margin"
+            android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+            android:hint="@string/credit_card_holder_name_label" />
+
+        <co.omise.android.ui.ExpiryDateEditText
+            android:id="@+id/cardExpiryDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cardOwnerName"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="@dimen/donation_screen_header_margin"
+            android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+            android:hint="@string/credit_card_expiry_date_label"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.45" />
+
+        <co.omise.android.ui.SecurityCodeEditText
+            android:id="@+id/cardSecurityCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cardOwnerName"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginVertical="@dimen/donation_screen_header_margin"
+            android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+            android:hint="@string/credit_card_security_code_label"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.45" />
+
+        <EditText
+            android:id="@+id/amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/donation_screen_header_margin"
+            android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/cardExpiryDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.45"
+            android:hint="@string/credit_card_amount_label"/>
+
+        <Button
+            android:id="@+id/paymentSubmitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+            android:layout_marginVertical="@dimen/donation_screen_header_margin"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/donation_pay_label"
+            android:textColor="@color/design_default_color_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

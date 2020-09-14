@@ -13,4 +13,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="charities_header">Charities to Donate</string>
     <string name="no_charity_available">No charity is available now</string>
+    <string name="credit_card_number_label">Credit Card Number</string>
+    <string name="credit_card_holder_name_label">Card Holder Name</string>
+    <string name="credit_card_expiry_date_label">Expiry Date</string>
+    <string name="credit_card_security_code_label">Security Code</string>
+    <string name="credit_card_amount_label">Amount</string>
+    <string name="donation_pay_label">Make Donation</string>
 </resources>
