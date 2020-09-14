@@ -1,16 +1,20 @@
 package com.omise.omisetest.common.bindingutils
 
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.lifecycle.MutableLiveData
+import co.omise.android.ui.CreditCardEditText
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.omise.omisetest.R
 import com.omise.omisetest.common.models.Charity
 
 @BindingAdapter("charityString")
-fun TextView.setSleepQualityString(item: Charity?) {
+fun TextView.setCharityString(item: Charity?) {
     item?.let {
         text = item.name
     }
@@ -29,8 +33,10 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .load(imgUri)
             .apply(
                 RequestOptions()
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image))
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image)
+            )
             .into(imgView)
     }
 }
+

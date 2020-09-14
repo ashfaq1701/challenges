@@ -1,6 +1,7 @@
 package com.omise.omisetest.common.dependencyinjection.application
 
 import android.app.Application
+import co.omise.android.api.Client
 import com.omise.omisetest.common.network.DonationsApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -11,7 +12,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule(private val baseUrl: String) {
+class ApplicationModule(private val baseUrl: String, private val omisePKey: String) {
     @Provides
     fun getMoshi(): Moshi {
         return Moshi.Builder()
@@ -32,4 +33,8 @@ class ApplicationModule(private val baseUrl: String) {
     fun donationsApiService(retrofit: Retrofit): DonationsApiService {
         return retrofit.create(DonationsApiService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun getClient() = Client(omisePKey)
 }

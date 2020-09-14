@@ -55,6 +55,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginVertical="@dimen/donation_screen_header_margin"
             android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+            android:text="@={donationScreenViewModel.cardHolderName}"
             android:hint="@string/credit_card_holder_name_label" />
 
         <co.omise.android.ui.ExpiryDateEditText
@@ -78,6 +79,7 @@
             android:layout_marginVertical="@dimen/donation_screen_header_margin"
             android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
             android:hint="@string/credit_card_security_code_label"
+            android:text="@={donationScreenViewModel.cardSecurityCode}"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.45" />
 
@@ -92,6 +94,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.45"
+            android:text="@={donationScreenViewModel.amountTxt}"
             android:hint="@string/credit_card_amount_label"/>
 
         <Button
@@ -104,6 +107,7 @@
             android:text="@string/donation_pay_label"
             android:textColor="@color/design_default_color_background"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{() -> donationScreenViewModel.submitForm()}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

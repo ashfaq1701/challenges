@@ -1,7 +1,6 @@
 package com.omise.omisetest.screens.donations
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +10,8 @@ import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.R
 import com.omise.omisetest.common.fragment.BaseFragment
 import com.omise.omisetest.common.utils.DecimalDigitsInputFilter
-import com.omise.omisetest.databinding.CharitiesScreenBinding
 import com.omise.omisetest.databinding.DonationScreenBinding
-import com.omise.omisetest.screens.charities.CharitiesViewModel
-import com.omise.omisetest.screens.charities.CharitiesViewModelFactory
+import kotlinx.android.synthetic.main.donation_screen.view.*
 import javax.inject.Inject
 
 class DonationScreen : BaseFragment() {
@@ -49,8 +46,26 @@ class DonationScreen : BaseFragment() {
         dataBinding = DataBindingUtil.inflate(
             inflater, R.layout.donation_screen, container, false)
         dataBinding.donationScreenViewModel = viewModel
-
         dataBinding.amount.filters = arrayOf(decimalDigitsInputFilter)
+
+        /**
+         * I really didn't want to do this, but omise SDK doesn't have binding adapters :(
+         */
+        dataBinding.cardExpiryDate.setOnFocusChangeListener { view, hasFocus ->
+            if (!hasFocus) {
+                viewModel.setCardExpiryMonth(dataBinding.cardExpiryDate.expiryMonth)
+                viewModel.setCardExpiryYear(dataBinding.cardExpiryDate.expiryYear)
+            }
+        }
+
+        /**
+         * Same, would be better if it could be avoided :(
+         */
+        dataBinding.cardNumber.setOnFocusChangeListener {view, hasFocus ->
+            if (!hasFocus) {
+                viewModel.setCardNumber(dataBinding.cardNumber.cardNumber)
+            }
+        }
 
         dataBinding.setLifecycleOwner(this)
         return dataBinding.root

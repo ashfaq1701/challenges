@@ -22,12 +22,13 @@ class DonationApplication: MultiDexApplication() {
 
         val bundle = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA).metaData
         val baseUrl = bundle.getString("api_base_path") ?: throw IllegalArgumentException("Api base url not set in manifest!!")
+        val omisePKey = bundle.getString("omise_api_public_key") ?: throw IllegalArgumentException("Omise public key not set in manifest!!")
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
         mApplicationComponent = DaggerApplicationComponent.builder()
             .applicationModule(
-                ApplicationModule(baseUrl)
+                ApplicationModule(baseUrl, omisePKey)
             )
             .build()
         mApplicationComponent.inject(this)

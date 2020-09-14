@@ -1,5 +1,7 @@
 package com.omise.omisetest.common.viewModel
 
+import androidx.databinding.Observable
+import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.AndroidViewModel
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.common.dependencyinjection.viewModel.ViewModelComponent
