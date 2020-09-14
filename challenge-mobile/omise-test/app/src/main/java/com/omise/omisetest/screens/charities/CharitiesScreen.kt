@@ -46,6 +46,13 @@ class CharitiesScreen : Fragment() {
         viewModel.charities.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
+                if (it.isEmpty()) {
+                    dataBinding.noItemAvailable.visibility = View.VISIBLE
+                    dataBinding.charitiesList.visibility = View.GONE
+                } else {
+                    dataBinding.noItemAvailable.visibility = View.GONE
+                    dataBinding.charitiesList.visibility = View.VISIBLE
+                }
             }
         })
 

@@ -11,6 +11,15 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/no_item_available"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/home_margins"
+            android:gravity="center"
+            android:text="@string/no_charity_available"
+            android:visibility="gone" />
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="match_parent"
