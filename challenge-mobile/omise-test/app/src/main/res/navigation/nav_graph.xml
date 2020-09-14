@@ -20,6 +20,10 @@
             app:destination="@id/serverErrorScreen"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_charitiesScreen_to_donationScreen"
+            app:destination="@id/donationScreen"
+            app:popUpToInclusive="true"/>
 
     </fragment>
 
@@ -28,6 +32,11 @@
         android:name="com.omise.omisetest.screens.donations.DonationScreen"
         android:label="DonationScreen"
         tools:layout="@layout/donation_screen">
+
+        <argument
+            android:name="selectedCharity"
+            app:argType="com.omise.omisetest.models.Charity" />
+
         <action
             android:id="@+id/action_donationScreen_to_donationSuccessfulScreen"
             app:destination="@id/donationSuccessfulScreen"

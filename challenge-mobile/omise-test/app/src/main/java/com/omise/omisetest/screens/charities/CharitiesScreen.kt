@@ -1,5 +1,6 @@
 package com.omise.omisetest.screens.charities
 
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,9 +9,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.R
+import com.omise.omisetest.common.globals.ApiStatus
 import com.omise.omisetest.databinding.CharitiesScreenBinding
 import timber.log.Timber
 
@@ -42,8 +45,29 @@ class CharitiesScreen : Fragment() {
 
         viewModel.charities.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.submitList(it)
                 Timber.d("Submitting List ${adapter.currentList.size} items")
+            }
+        })
+
+        viewModel.selectedCharity.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                this.findNavController().navigate(CharitiesScreenDirections.actionCharitiesScreenToDonationScreen(it))
+                viewModel.doneNavigating()
+            }
+        })
+
+        viewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            if (status == ApiStatus.LOADING) {
+                dataBinding.progressBar.visibility = View.VISIBLE
+            } else {
+                dataBinding.progressBar.visibility = View.GONE
+                if (status == ApiStatus.NoInternet) {
+                    this.findNavController().navigate(CharitiesScreenDirections.actionCharitiesScreenToConnectionErrorScreen())
+                    viewModel.doneNavigating()
+                } else if (status == ApiStatus.ERROR) {
+                    this.findNavController().navigate(CharitiesScreenDirections.actionCharitiesScreenToServerErrorScreen())
+                    viewModel.doneNavigating()
+                }
             }
         })
 

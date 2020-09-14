@@ -1,4 +1,4 @@
-package com.omise.omisetest.screens.charities
+package com.omise.omisetest.common.bindingutils
 
 import android.widget.ImageView
 import android.widget.TextView
@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.omise.omisetest.R
+import com.omise.omisetest.models.Charity
 
 @BindingAdapter("charityString")
 fun TextView.setSleepQualityString(item: Charity?) {

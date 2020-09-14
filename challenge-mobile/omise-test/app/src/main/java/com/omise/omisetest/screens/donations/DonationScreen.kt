@@ -16,6 +16,6 @@ class DonationScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.charities_screen, container, false)
+        return inflater.inflate(R.layout.donation_screen, container, false)
     }
 }

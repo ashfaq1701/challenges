@@ -6,11 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.common.globals.ApiStatus
 import com.omise.omisetest.common.viewModel.BaseViewModel
+import com.omise.omisetest.models.Charity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
-import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
@@ -25,6 +24,10 @@ class CharitiesViewModel(application: DonationApplication): BaseViewModel(applic
     private val _charities = MutableLiveData<List<Charity>>()
     val charities: LiveData<List<Charity>>
         get() = _charities
+
+    private val _selectedCharity = MutableLiveData<Charity?>()
+    val selectedCharity: LiveData<Charity?>
+        get() = _selectedCharity
 
     init {
         getViewModelComponent().inject(this)
@@ -50,6 +53,18 @@ class CharitiesViewModel(application: DonationApplication): BaseViewModel(applic
     }
 
     fun onCharityClicked(charityId: Int) {
+        val filteredCharities = _charities.value?.filter {
+            it.id == charityId
+        }
+        filteredCharities?.let {
+            if (filteredCharities.isNotEmpty()) {
+                _selectedCharity.value = filteredCharities.first()
+            }
+        }
+    }
 
+    fun doneNavigating() {
+        _selectedCharity.value = null
+        _status.value = ApiStatus.NONE
     }
 }
