@@ -13,6 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/progressBarDonationPage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminate="true"
+            android:indeterminateTint="#DDD"
+            android:indeterminateTintMode="src_in"
+            android:visibility="invisible" />
+
         <ImageView
             android:id="@+id/donation_cover"
             android:layout_width="match_parent"

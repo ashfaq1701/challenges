@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.R
@@ -66,6 +67,14 @@ class DonationScreen : BaseFragment() {
                 viewModel.setCardNumber(dataBinding.cardNumber.cardNumber)
             }
         }
+
+        viewModel.formSubmitted.observe(viewLifecycleOwner, Observer {
+            if (!it) {
+                dataBinding.progressBarDonationPage.visibility = View.GONE
+            } else {
+                dataBinding.progressBarDonationPage.visibility = View.VISIBLE
+            }
+        })
 
         dataBinding.setLifecycleOwner(this)
         return dataBinding.root
