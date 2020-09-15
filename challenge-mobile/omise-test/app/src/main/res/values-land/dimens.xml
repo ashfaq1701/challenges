@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="donation_cover_height">100dp</dimen>
+    <dimen name="donation_screen_header_margin">10dp</dimen>
+    <dimen name="donation_screen_header_textsize">15sp</dimen>
+    <dimen name="donation_payment_submit_btn_margin_top">20dp</dimen>
+</resources>

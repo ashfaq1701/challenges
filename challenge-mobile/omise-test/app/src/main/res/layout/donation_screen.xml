@@ -9,10 +9,9 @@
             type="com.omise.omisetest.screens.donations.DonationViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <ProgressBar
             android:id="@+id/progressBarDonationPage"
             android:layout_width="match_parent"
@@ -20,114 +19,123 @@
             android:indeterminate="true"
             android:indeterminateTint="#DDD"
             android:indeterminateTintMode="src_in"
+            android:background="@color/semiTransparent"
             android:visibility="invisible" />
-
-        <ImageView
-            android:id="@+id/donation_cover"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/donation_cover_height"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            app:imageUrl="@{donationScreenViewModel.charity.logoUrl}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic" />
+            android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/donation_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/donation_cover_height"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    app:imageUrl="@{donationScreenViewModel.charity.logoUrl}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/backgrounds/scenic" />
 
-        <TextView
-            android:id="@+id/donationTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/donation_screen_header_margin"
-            android:layout_marginTop="@dimen/donation_screen_header_margin"
-            android:textSize="@dimen/donation_screen_header_textsize"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/donation_cover"
-            tools:text="Donation for child"
-            app:charityString="@{donationScreenViewModel.charity}" />
+                <TextView
+                    android:id="@+id/donationTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/donation_screen_header_margin"
+                    android:layout_marginTop="@dimen/donation_screen_header_margin"
+                    android:textSize="@dimen/donation_screen_header_textsize"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/donation_cover"
+                    tools:text="Donation for child"
+                    app:charityString="@{donationScreenViewModel.charity}" />
 
-        <co.omise.android.ui.CreditCardEditText
-            android:id="@+id/cardNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/donationTxt"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginVertical="@dimen/donation_screen_header_margin"
-            android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
-            android:enabled="@{donationScreenViewModel.formFieldsEnabled}"
-            android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
-            android:hint="@string/credit_card_number_label" />
+                <co.omise.android.ui.CreditCardEditText
+                    android:id="@+id/cardNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/donationTxt"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginVertical="@dimen/donation_screen_header_margin"
+                    android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+                    android:enabled="@{donationScreenViewModel.formFieldsEnabled}"
+                    android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
+                    android:hint="@string/credit_card_number_label" />
 
-        <co.omise.android.ui.CardNameEditText
-            android:id="@+id/cardOwnerName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/cardNumber"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginVertical="@dimen/donation_screen_header_margin"
-            android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
-            android:text="@={donationScreenViewModel.cardHolderName}"
-            android:focusable="@{donationScreenViewModel.formFieldsEnabled}"
-            android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
-            android:hint="@string/credit_card_holder_name_label" />
+                <co.omise.android.ui.CardNameEditText
+                    android:id="@+id/cardOwnerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/cardNumber"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginVertical="@dimen/donation_screen_header_margin"
+                    android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+                    android:text="@={donationScreenViewModel.cardHolderName}"
+                    android:focusable="@{donationScreenViewModel.formFieldsEnabled}"
+                    android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
+                    android:hint="@string/credit_card_holder_name_label" />
 
-        <co.omise.android.ui.ExpiryDateEditText
-            android:id="@+id/cardExpiryDate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/cardOwnerName"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginVertical="@dimen/donation_screen_header_margin"
-            android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
-            android:hint="@string/credit_card_expiry_date_label"
-            android:focusable="@{donationScreenViewModel.formFieldsEnabled}"
-            android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
-            app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.45" />
+                <co.omise.android.ui.ExpiryDateEditText
+                    android:id="@+id/cardExpiryDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/cardOwnerName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginVertical="@dimen/donation_screen_header_margin"
+                    android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+                    android:hint="@string/credit_card_expiry_date_label"
+                    android:focusable="@{donationScreenViewModel.formFieldsEnabled}"
+                    android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
+                    app:layout_constraintWidth_default="percent"
+                    app:layout_constraintWidth_percent="0.45" />
 
-        <co.omise.android.ui.SecurityCodeEditText
-            android:id="@+id/cardSecurityCode"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/cardOwnerName"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginVertical="@dimen/donation_screen_header_margin"
-            android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
-            android:hint="@string/credit_card_security_code_label"
-            android:focusable="@{donationScreenViewModel.formFieldsEnabled}"
-            android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
-            android:text="@={donationScreenViewModel.cardSecurityCode}"
-            app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.45" />
+                <co.omise.android.ui.SecurityCodeEditText
+                    android:id="@+id/cardSecurityCode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/cardOwnerName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginVertical="@dimen/donation_screen_header_margin"
+                    android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+                    android:hint="@string/credit_card_security_code_label"
+                    android:focusable="@{donationScreenViewModel.formFieldsEnabled}"
+                    android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
+                    android:text="@={donationScreenViewModel.cardSecurityCode}"
+                    app:layout_constraintWidth_default="percent"
+                    app:layout_constraintWidth_percent="0.45" />
 
-        <EditText
-            android:id="@+id/amount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/donation_screen_header_margin"
-            android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
-            android:inputType="numberDecimal"
-            android:focusable="@{donationScreenViewModel.formFieldsEnabled}"
-            android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
-            app:layout_constraintTop_toBottomOf="@id/cardExpiryDate"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.45"
-            android:text="@={donationScreenViewModel.amountTxt}"
-            android:hint="@string/credit_card_amount_label"/>
+                <EditText
+                    android:id="@+id/amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/donation_screen_header_margin"
+                    android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+                    android:inputType="numberDecimal"
+                    android:focusable="@{donationScreenViewModel.formFieldsEnabled}"
+                    android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
+                    app:layout_constraintTop_toBottomOf="@id/cardExpiryDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintWidth_default="percent"
+                    app:layout_constraintWidth_percent="0.45"
+                    android:text="@={donationScreenViewModel.amountTxt}"
+                    android:hint="@string/credit_card_amount_label"/>
 
-        <Button
-            android:id="@+id/paymentSubmitButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
-            android:layout_marginVertical="@dimen/donation_screen_header_margin"
-            android:backgroundTint="@color/colorAccent"
-            android:text="@string/donation_pay_label"
-            android:textColor="@color/design_default_color_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:enabled="@{donationScreenViewModel.submitEnabled}"
-            android:onClick="@{() -> donationScreenViewModel.submitForm()}" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/paymentSubmitButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+                    android:layout_marginBottom="@dimen/donation_screen_header_margin"
+                    android:layout_marginTop="@dimen/donation_payment_submit_btn_margin_top"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="@string/donation_pay_label"
+                    android:textColor="@color/design_default_color_background"
+                    app:layout_constraintTop_toBottomOf="@+id/amount"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:enabled="@{donationScreenViewModel.submitEnabled}"
+                    android:onClick="@{() -> donationScreenViewModel.submitForm()}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </FrameLayout>
 </layout>

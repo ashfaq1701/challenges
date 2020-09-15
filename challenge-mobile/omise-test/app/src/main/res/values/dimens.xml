@@ -15,4 +15,5 @@
     <dimen name="donation_cover_height">200dp</dimen>
     <dimen name="donation_screen_header_margin">10dp</dimen>
     <dimen name="donation_screen_header_textsize">20sp</dimen>
+    <dimen name="donation_payment_submit_btn_margin_top">200dp</dimen>
 </resources>

@@ -28,7 +28,11 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
     val cardSecurityCode = MutableLiveData<String>()
     val amountTxt = MutableLiveData<String>()
     val amount: LiveData<Float> = Transformations.map(amountTxt) {
-        it.toFloat()
+        if (it.isEmpty()) {
+            0F
+        } else {
+            it.toFloat()
+        }
     }
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
