@@ -3,9 +3,16 @@ package com.omise.omisetest.screens.donations
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.viewModelScope
 import com.omise.omisetest.DonationApplication
+import com.omise.omisetest.common.globals.ApiStatus
+import com.omise.omisetest.common.models.Charge
 import com.omise.omisetest.common.models.Charity
+import com.omise.omisetest.common.models.CreditCard
 import com.omise.omisetest.common.viewModel.BaseViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -22,6 +29,9 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
     val amount: LiveData<Float> = Transformations.map(amountTxt) {
         it.toFloat()
     }
+    private val _status = MutableLiveData<ApiStatus>()
+    val status: LiveData<ApiStatus>
+        get() = _status
 
     val formFieldComplexLiveData = CreditCardComplexLiveData(_cardNumber, cardHolderName, _cardExpiryMonth, _cardExpiryYear, cardSecurityCode, amount)
     val formValid: LiveData<Boolean> = Transformations.switchMap(formFieldComplexLiveData) { liveData ->
@@ -54,8 +64,19 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
     }
 
     fun submitForm() {
-        Timber.d("FORM SUBMITTED")
         formSubmitted.value = true
+        viewModelScope.launch {
+            _status.value = ApiStatus.LOADING
+            donationRepository.createToken(CreditCard(
+                cardNumber = _cardNumber.value!!,
+                cardholderName = cardHolderName.value!!,
+                expMonth = _cardExpiryMonth.value!!,
+                expYear = _cardExpiryYear.value!!,
+                securityCode = cardSecurityCode.value!!
+            )) { token: String? ->
+                createTokenCallback(token)
+            }
+        }
     }
 
     fun setCardExpiryMonth(cardExpiryMonth: Int) {
@@ -68,5 +89,22 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
 
     fun setCardNumber(cardNumber: String) {
         _cardNumber.value = cardNumber
+    }
+
+    fun createTokenCallback(token: String?) {
+        if (token == null) {
+            formSubmitted.postValue(false)
+            _status.postValue(ApiStatus.ERROR)
+        } else {
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    donationRepository.charge(Charge(
+                        name = cardHolderName.value!!,
+                        token = token,
+                        amount = (amount.value!! * 100).toInt()
+                    ))
+                }
+            }
+        }
     }
 }

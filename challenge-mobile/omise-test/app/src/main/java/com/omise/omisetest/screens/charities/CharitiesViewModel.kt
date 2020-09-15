@@ -37,7 +37,7 @@ class CharitiesViewModel(application: DonationApplication): BaseViewModel(applic
             withContext(Dispatchers.IO) {
                 try {
                     _charities.postValue(charitiesRepository.getCharities())
-                    _status.postValue(ApiStatus.DONE)
+                    _status.postValue(ApiStatus.Success)
                 } catch (ex: Exception) {
                     when (ex) {
                         is IOException -> {
