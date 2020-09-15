@@ -8,7 +8,6 @@ import com.omise.omisetest.common.globals.ApiStatus
 import com.omise.omisetest.common.models.Charge
 import com.omise.omisetest.common.models.CreditCard
 import com.omise.omisetest.common.network.DonationsApiService
-import timber.log.Timber
 
 class DonationRepository(private val donationsApiService: DonationsApiService, private val omiseClient: Client) {
     suspend fun charge(charge: Charge): String {

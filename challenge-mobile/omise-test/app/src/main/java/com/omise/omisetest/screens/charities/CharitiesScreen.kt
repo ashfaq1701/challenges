@@ -1,8 +1,6 @@
 package com.omise.omisetest.screens.charities
 
-import android.opengl.Visibility
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.R
 import com.omise.omisetest.common.fragment.BaseFragment
 import com.omise.omisetest.common.globals.ApiStatus
 import com.omise.omisetest.databinding.CharitiesScreenBinding
-import timber.log.Timber
 
 class CharitiesScreen : BaseFragment() {
     private val viewModel: CharitiesViewModel by lazy {
@@ -84,7 +80,7 @@ class CharitiesScreen : BaseFragment() {
             }
         })
 
-        dataBinding.setLifecycleOwner(this)
+        dataBinding.lifecycleOwner = this
 
         return dataBinding.root
     }

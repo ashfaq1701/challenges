@@ -13,7 +13,6 @@ import com.omise.omisetest.common.viewModel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
@@ -27,7 +26,7 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
     private val _cardExpiryYear = MutableLiveData<Int>()
     val cardSecurityCode = MutableLiveData<String>()
     val amountTxt = MutableLiveData<String>()
-    val amount: LiveData<Float> = Transformations.map(amountTxt) {
+    private val amount: LiveData<Float> = Transformations.map(amountTxt) {
         if (it.isEmpty()) {
             0F
         } else {
@@ -38,8 +37,8 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
     val status: LiveData<ApiStatus>
         get() = _status
 
-    val formFieldComplexLiveData = CreditCardComplexLiveData(_cardNumber, cardHolderName, _cardExpiryMonth, _cardExpiryYear, cardSecurityCode, amount)
-    val formValid: LiveData<Boolean> = Transformations.switchMap(formFieldComplexLiveData) { liveData ->
+    private val formFieldComplexLiveData = CreditCardComplexLiveData(_cardNumber, cardHolderName, _cardExpiryMonth, _cardExpiryYear, cardSecurityCode, amount)
+    private val formValid: LiveData<Boolean> = Transformations.switchMap(formFieldComplexLiveData) { liveData ->
         MutableLiveData<Boolean>((liveData.first != null) &&
                 liveData.first.isNotEmpty() &&
                 (liveData.second != null) &&
@@ -96,7 +95,7 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
         _cardNumber.value = cardNumber
     }
 
-    fun createTokenCallback(token: String?) {
+    private fun createTokenCallback(token: String?) {
         if (token == null) {
             formSubmitted.postValue(false)
             _status.postValue(ApiStatus.ERROR)
@@ -104,7 +103,7 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
                     try {
-                        val resp = donationRepository.charge(
+                        donationRepository.charge(
                             Charge(
                                 name = cardHolderName.value!!,
                                 token = token,

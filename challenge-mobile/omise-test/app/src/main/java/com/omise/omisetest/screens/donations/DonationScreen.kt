@@ -14,8 +14,6 @@ import com.omise.omisetest.common.fragment.BaseFragment
 import com.omise.omisetest.common.globals.ApiStatus
 import com.omise.omisetest.common.utils.DecimalDigitsInputFilter
 import com.omise.omisetest.databinding.DonationScreenBinding
-import com.omise.omisetest.screens.charities.CharitiesScreenDirections
-import kotlinx.android.synthetic.main.donation_screen.view.*
 import javax.inject.Inject
 
 class DonationScreen : BaseFragment() {
@@ -55,7 +53,7 @@ class DonationScreen : BaseFragment() {
         /**
          * I really didn't want to do this, but omise SDK doesn't have binding adapters :(
          */
-        dataBinding.cardExpiryDate.setOnFocusChangeListener { view, hasFocus ->
+        dataBinding.cardExpiryDate.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 viewModel.setCardExpiryMonth(dataBinding.cardExpiryDate.expiryMonth)
                 viewModel.setCardExpiryYear(dataBinding.cardExpiryDate.expiryYear)
@@ -65,7 +63,7 @@ class DonationScreen : BaseFragment() {
         /**
          * Same, would be better if it could be avoided :(
          */
-        dataBinding.cardNumber.setOnFocusChangeListener {view, hasFocus ->
+        dataBinding.cardNumber.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 viewModel.setCardNumber(dataBinding.cardNumber.cardNumber)
             }
@@ -97,7 +95,7 @@ class DonationScreen : BaseFragment() {
             }
         })
 
-        dataBinding.setLifecycleOwner(this)
+        dataBinding.lifecycleOwner = this
         return dataBinding.root
     }
 }

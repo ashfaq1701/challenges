@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.omise.omisetest.databinding.ListItemCharityBinding
 import com.omise.omisetest.common.models.Charity
 
-class CharitiesAdapter(val clickListener: CharityListener): ListAdapter<Charity, CharitiesAdapter.ViewHolder>(CharitiesDiffCallback()) {
+class CharitiesAdapter(private val clickListener: CharityListener): ListAdapter<Charity, CharitiesAdapter.ViewHolder>(CharitiesDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
