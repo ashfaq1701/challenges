@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.io.IOException
 import javax.inject.Inject
 
 class DonationViewModel(application: DonationApplication, val charity: Charity): BaseViewModel(application) {
@@ -98,13 +99,34 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
         } else {
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
-                    donationRepository.charge(Charge(
-                        name = cardHolderName.value!!,
-                        token = token,
-                        amount = (amount.value!! * 100).toInt()
-                    ))
+                    try {
+                        val resp = donationRepository.charge(
+                            Charge(
+                                name = cardHolderName.value!!,
+                                token = token,
+                                amount = (amount.value!! * 100).toInt()
+                            )
+                        )
+                        formSubmitted.postValue(false)
+                        _status.postValue(ApiStatus.Success)
+                    } catch (ex: Exception) {
+                        when (ex) {
+                            is IOException -> {
+                                formSubmitted.postValue(false)
+                                _status.postValue(ApiStatus.NoInternet)
+                            }
+                            else -> {
+                                formSubmitted.postValue(false)
+                                _status.postValue(ApiStatus.ERROR)
+                            }
+                        }
+                    }
                 }
             }
         }
+    }
+
+    fun doneNavigating() {
+        _status.value = ApiStatus.NONE
     }
 }

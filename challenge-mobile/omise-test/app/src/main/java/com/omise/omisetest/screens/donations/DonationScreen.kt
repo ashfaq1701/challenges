@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.R
 import com.omise.omisetest.common.fragment.BaseFragment
+import com.omise.omisetest.common.globals.ApiStatus
 import com.omise.omisetest.common.utils.DecimalDigitsInputFilter
 import com.omise.omisetest.databinding.DonationScreenBinding
+import com.omise.omisetest.screens.charities.CharitiesScreenDirections
 import kotlinx.android.synthetic.main.donation_screen.view.*
 import javax.inject.Inject
 
@@ -73,6 +76,24 @@ class DonationScreen : BaseFragment() {
                 dataBinding.progressBarDonationPage.visibility = View.GONE
             } else {
                 dataBinding.progressBarDonationPage.visibility = View.VISIBLE
+            }
+        })
+
+        viewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            when (status) {
+                ApiStatus.Success -> {
+                    this.findNavController().navigate(DonationScreenDirections.actionDonationScreenToDonationSuccessfulScreen())
+                    viewModel.doneNavigating()
+                }
+                ApiStatus.NoInternet -> {
+                    this.findNavController().navigate(DonationScreenDirections.actionDonationScreenToConnectionErrorScreen())
+                    viewModel.doneNavigating()
+                }
+                ApiStatus.ERROR -> {
+                    this.findNavController().navigate(DonationScreenDirections.actionDonationScreenToServerErrorScreen())
+                    viewModel.doneNavigating()
+                }
+                else -> {}
             }
         })
 

@@ -11,8 +11,8 @@ import com.omise.omisetest.common.network.DonationsApiService
 import timber.log.Timber
 
 class DonationRepository(private val donationsApiService: DonationsApiService, private val omiseClient: Client) {
-    suspend fun charge(charge: Charge) {
-        Timber.d("${charge.name}, ${charge.token}, ${charge.amount}")
+    suspend fun charge(charge: Charge): String {
+        return donationsApiService.createDonation(charge.toNetworkLevel())
     }
 
     fun createToken(creditCard: CreditCard, tokenCallback: (String?) -> Unit): ApiStatus {

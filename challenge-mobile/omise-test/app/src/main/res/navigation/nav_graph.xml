@@ -22,9 +22,7 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_charitiesScreen_to_donationScreen"
-            app:destination="@id/donationScreen"
-            app:popUpToInclusive="true"/>
-
+            app:destination="@id/donationScreen" />
     </fragment>
 
     <fragment
@@ -40,18 +38,15 @@
         <action
             android:id="@+id/action_donationScreen_to_donationSuccessfulScreen"
             app:destination="@id/donationSuccessfulScreen"
-            app:popUpTo="@id/charitiesScreen"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/charitiesScreen" />
         <action
             android:id="@+id/action_donationScreen_to_connectionErrorScreen"
             app:destination="@id/connectionErrorScreen"
-            app:popUpTo="@id/charitiesScreen"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/charitiesScreen"/>
         <action
             android:id="@+id/action_donationScreen_to_serverErrorScreen"
             app:destination="@id/serverErrorScreen"
-            app:popUpTo="@id/charitiesScreen"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/charitiesScreen"/>
     </fragment>
 
     <fragment
