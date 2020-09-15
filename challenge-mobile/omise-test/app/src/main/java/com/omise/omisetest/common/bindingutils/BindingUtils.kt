@@ -1,13 +1,12 @@
 package com.omise.omisetest.common.bindingutils
 
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseBindingAdapter
-import androidx.lifecycle.MutableLiveData
-import co.omise.android.ui.CreditCardEditText
+import androidx.lifecycle.LiveData
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.omise.omisetest.R
@@ -40,3 +39,27 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     }
 }
 
+@BindingAdapter("editTextActiveControl")
+fun setEditTextActiveControl(editText: EditText, isActive: LiveData<Boolean>) {
+    val context = editText.context
+    if (isActive.value == true) {
+        editText.isFocusable = true
+        editText.isFocusableInTouchMode = true
+    } else {
+        editText.isFocusable = false
+        editText.isFocusableInTouchMode = false
+        editText.setBackgroundColor(context.getColor(R.color.editTextDisabledBackground))
+    }
+}
+
+@BindingAdapter("buttonActiveControl")
+fun setButtonActiveControl(button: Button, isActive: LiveData<Boolean>) {
+    val context = button.context
+    if (isActive.value == true) {
+        button.isEnabled = true
+        button.setBackgroundColor(context.getColor(R.color.colorAccent))
+    } else {
+        button.isEnabled = false
+        button.setBackgroundColor(context.getColor(R.color.colorDisabled))
+    }
+}
