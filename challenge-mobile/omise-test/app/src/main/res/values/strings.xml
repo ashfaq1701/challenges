@@ -19,4 +19,8 @@
     <string name="credit_card_security_code_label">Security Code</string>
     <string name="credit_card_amount_label">Amount</string>
     <string name="donation_pay_label">Make Donation</string>
+    <string name="press_back_button">Press device back button to go back</string>
+    <string name="connection_error">Connection error with remote server</string>
+    <string name="payment_successful">Thank you for your payment</string>
+    <string name="server_error">Server error while processing this payment</string>
 </resources>
