@@ -45,6 +45,8 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginVertical="@dimen/donation_screen_header_margin"
             android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
+            android:enabled="@{donationScreenViewModel.formFieldsEnabled}"
+            android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
             android:hint="@string/credit_card_number_label" />
 
         <co.omise.android.ui.CardNameEditText
@@ -56,6 +58,8 @@
             android:layout_marginVertical="@dimen/donation_screen_header_margin"
             android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
             android:text="@={donationScreenViewModel.cardHolderName}"
+            android:focusable="@{donationScreenViewModel.formFieldsEnabled}"
+            android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
             android:hint="@string/credit_card_holder_name_label" />
 
         <co.omise.android.ui.ExpiryDateEditText
@@ -67,6 +71,8 @@
             android:layout_marginVertical="@dimen/donation_screen_header_margin"
             android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
             android:hint="@string/credit_card_expiry_date_label"
+            android:focusable="@{donationScreenViewModel.formFieldsEnabled}"
+            android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.45" />
 
@@ -79,6 +85,8 @@
             android:layout_marginVertical="@dimen/donation_screen_header_margin"
             android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
             android:hint="@string/credit_card_security_code_label"
+            android:focusable="@{donationScreenViewModel.formFieldsEnabled}"
+            android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
             android:text="@={donationScreenViewModel.cardSecurityCode}"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.45" />
@@ -90,6 +98,8 @@
             android:layout_marginVertical="@dimen/donation_screen_header_margin"
             android:layout_marginHorizontal="@dimen/donation_screen_header_margin"
             android:inputType="numberDecimal"
+            android:focusable="@{donationScreenViewModel.formFieldsEnabled}"
+            android:focusableInTouchMode="@{donationScreenViewModel.formFieldsEnabled}"
             app:layout_constraintTop_toBottomOf="@id/cardExpiryDate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_default="percent"
@@ -108,6 +118,7 @@
             android:textColor="@color/design_default_color_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:enabled="@{donationScreenViewModel.submitEnabled}"
             android:onClick="@{() -> donationScreenViewModel.submitForm()}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
