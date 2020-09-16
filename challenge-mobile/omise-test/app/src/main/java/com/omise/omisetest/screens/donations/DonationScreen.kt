@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.R
 import com.omise.omisetest.common.fragment.BaseFragment
-import com.omise.omisetest.common.globals.ApiStatus
 import com.omise.omisetest.common.utils.DecimalDigitsInputFilter
 import com.omise.omisetest.databinding.DonationScreenBinding
 import javax.inject.Inject
