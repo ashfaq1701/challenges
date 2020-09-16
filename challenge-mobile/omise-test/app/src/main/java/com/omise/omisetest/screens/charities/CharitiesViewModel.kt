@@ -1,11 +1,11 @@
 package com.omise.omisetest.screens.charities
 
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.common.globals.ApiStatus
-import com.omise.omisetest.common.viewModel.BaseViewModel
 import com.omise.omisetest.common.models.Charity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,10 +13,7 @@ import kotlinx.coroutines.withContext
 import java.io.IOException
 import javax.inject.Inject
 
-class CharitiesViewModel(application: DonationApplication): BaseViewModel(application) {
-    @Inject
-    lateinit var charitiesRepository:  CharitiesRepository
-
+class CharitiesViewModel(application: DonationApplication, val charitiesRepository: CharitiesRepository): AndroidViewModel(application) {
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
         get() = _status
@@ -50,8 +47,6 @@ class CharitiesViewModel(application: DonationApplication): BaseViewModel(applic
         get() = _navigateToDonation
 
     init {
-        getViewModelComponent().inject(this)
-
         viewModelScope.launch {
             _status.value = ApiStatus.LOADING
             startLoading()

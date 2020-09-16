@@ -16,11 +16,14 @@ import com.omise.omisetest.databinding.DonationScreenBinding
 import javax.inject.Inject
 
 class DonationScreen : BaseFragment() {
+    @Inject
+    lateinit var donationRepository: DonationRepository
+
     private val viewModel: DonationViewModel by lazy {
         activity?.let {
             val args = DonationScreenArgs.fromBundle(requireArguments())
             val application = it.application as DonationApplication
-            val factory = DonationViewModelFactory(application, args.selectedCharity)
+            val factory = DonationViewModelFactory(application, donationRepository, args.selectedCharity)
             return@lazy ViewModelProvider(this, factory).get(DonationViewModel::class.java)
         }
         throw IllegalStateException("Activity not defined")

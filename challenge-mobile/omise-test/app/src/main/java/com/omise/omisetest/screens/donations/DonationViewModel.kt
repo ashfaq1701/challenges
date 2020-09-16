@@ -1,25 +1,17 @@
 package com.omise.omisetest.screens.donations
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.common.globals.ApiStatus
 import com.omise.omisetest.common.models.Charge
 import com.omise.omisetest.common.models.Charity
 import com.omise.omisetest.common.models.CreditCard
-import com.omise.omisetest.common.viewModel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
-import javax.inject.Inject
 
-class DonationViewModel(application: DonationApplication, val charity: Charity): BaseViewModel(application) {
-    @Inject
-    lateinit var donationRepository: DonationRepository
-
+class DonationViewModel(application: DonationApplication, val donationRepository: DonationRepository, val charity: Charity): AndroidViewModel(application) {
     private val _cardNumber = MutableLiveData<String>()
     val cardHolderName = MutableLiveData<String>()
     private val _cardExpiryMonth = MutableLiveData<Int>()
@@ -78,10 +70,6 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
     private val _showProgressBar = MutableLiveData<Boolean>(false)
     val showProgressBar: MutableLiveData<Boolean>
         get() = _showProgressBar
-
-    init {
-        getViewModelComponent().inject(this)
-    }
 
     fun submitForm() {
         formSubmitted.value = true

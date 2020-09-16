@@ -1,5 +1,6 @@
 package com.omise.omisetest.common.dependencyinjection.presentation
 
+import co.omise.android.api.Client
 import com.omise.omisetest.common.network.DonationsApiService
 import com.omise.omisetest.common.utils.DecimalDigitsInputFilter
 import com.omise.omisetest.screens.charities.CharitiesRepository
@@ -14,5 +15,11 @@ class PresentationModule {
      */
     @Provides
     fun getDecimalDigitsInputFilter() = DecimalDigitsInputFilter(10, 2)
+
+    @Provides
+    fun getCharitiesRepository(donationsApiService: DonationsApiService) = CharitiesRepository(donationsApiService)
+
+    @Provides
+    fun getDonationRepository(donationsApiService: DonationsApiService, omiseClient: Client) = DonationRepository(donationsApiService, omiseClient)
 
 }
