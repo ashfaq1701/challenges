@@ -69,7 +69,7 @@ class DonationScreen : BaseFragment() {
             }
         }
 
-        viewModel.formSubmitted.observe(viewLifecycleOwner, Observer {
+        viewModel.showProgressBar.observe(viewLifecycleOwner, Observer {
             if (!it) {
                 dataBinding.progressBarDonationPage.visibility = View.GONE
             } else {
@@ -77,21 +77,24 @@ class DonationScreen : BaseFragment() {
             }
         })
 
-        viewModel.status.observe(viewLifecycleOwner, Observer { status ->
-            when (status) {
-                ApiStatus.Success -> {
-                    this.findNavController().navigate(DonationScreenDirections.actionDonationScreenToDonationSuccessfulScreen())
-                    viewModel.doneNavigating()
-                }
-                ApiStatus.NoInternet -> {
-                    this.findNavController().navigate(DonationScreenDirections.actionDonationScreenToConnectionErrorScreen())
-                    viewModel.doneNavigating()
-                }
-                ApiStatus.ERROR -> {
-                    this.findNavController().navigate(DonationScreenDirections.actionDonationScreenToServerErrorScreen())
-                    viewModel.doneNavigating()
-                }
-                else -> {}
+        viewModel.navigateToPaymentSuccessfulScreen.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                this.findNavController().navigate(DonationScreenDirections.actionDonationScreenToDonationSuccessfulScreen())
+                viewModel.resetNavigateToPaymentSuccessfulScreen()
+            }
+        })
+
+        viewModel.navigateToConnectionErrorScreen.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                this.findNavController().navigate(DonationScreenDirections.actionDonationScreenToConnectionErrorScreen())
+                viewModel.resetNavigateToConnectionErrorScreen()
+            }
+        })
+
+        viewModel.navigateToServerErrorScreen.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                this.findNavController().navigate(DonationScreenDirections.actionDonationScreenToServerErrorScreen())
+                viewModel.resetNavigateToServerErrorScreen()
             }
         })
 

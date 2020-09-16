@@ -63,12 +63,29 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
         MutableLiveData<Boolean>(liveData.first == true && liveData.second != true)
     }
 
+    private val _navigateToPaymentSuccessfulScreen = MutableLiveData<Boolean>(false)
+    val navigateToPaymentSuccessfulScreen: MutableLiveData<Boolean>
+        get() = _navigateToPaymentSuccessfulScreen
+
+    private val _navigateToConnectionErrorScreen = MutableLiveData<Boolean>(false)
+    val navigateToConnectionErrorScreen: MutableLiveData<Boolean>
+        get() = _navigateToConnectionErrorScreen
+
+    private val _navigateToServerErrorScreen = MutableLiveData<Boolean>(false)
+    val navigateToServerErrorScreen: MutableLiveData<Boolean>
+        get() = _navigateToServerErrorScreen
+
+    private val _showProgressBar = MutableLiveData<Boolean>(false)
+    val showProgressBar: MutableLiveData<Boolean>
+        get() = _showProgressBar
+
     init {
         getViewModelComponent().inject(this)
     }
 
     fun submitForm() {
         formSubmitted.value = true
+        _showProgressBar.value = true
         viewModelScope.launch {
             _status.value = ApiStatus.LOADING
             donationRepository.createToken(CreditCard(
@@ -98,6 +115,7 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
     private fun createTokenCallback(token: String?) {
         if (token == null) {
             formSubmitted.postValue(false)
+            _showProgressBar.postValue(false)
             _status.postValue(ApiStatus.ERROR)
         } else {
             viewModelScope.launch {
@@ -111,16 +129,22 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
                             )
                         )
                         formSubmitted.postValue(false)
+                        _showProgressBar.postValue(false)
                         _status.postValue(ApiStatus.Success)
+                        _navigateToPaymentSuccessfulScreen.postValue(true)
                     } catch (ex: Exception) {
                         when (ex) {
                             is IOException -> {
                                 formSubmitted.postValue(false)
+                                _showProgressBar.postValue(false)
                                 _status.postValue(ApiStatus.NoInternet)
+                                _navigateToConnectionErrorScreen.postValue(true)
                             }
                             else -> {
                                 formSubmitted.postValue(false)
+                                _showProgressBar.postValue(false)
                                 _status.postValue(ApiStatus.ERROR)
+                                _navigateToServerErrorScreen.postValue(true)
                             }
                         }
                     }
@@ -129,7 +153,15 @@ class DonationViewModel(application: DonationApplication, val charity: Charity):
         }
     }
 
-    fun doneNavigating() {
-        _status.value = ApiStatus.NONE
+    fun resetNavigateToPaymentSuccessfulScreen() {
+        _navigateToPaymentSuccessfulScreen.postValue(false)
+    }
+
+    fun resetNavigateToConnectionErrorScreen() {
+        _navigateToConnectionErrorScreen.postValue(false)
+    }
+
+    fun resetNavigateToServerErrorScreen() {
+        _navigateToServerErrorScreen.postValue(false)
     }
 }

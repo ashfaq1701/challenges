@@ -58,25 +58,32 @@ class CharitiesScreen : BaseFragment() {
             }
         })
 
-        viewModel.selectedCharity.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                this.findNavController().navigate(CharitiesScreenDirections.actionCharitiesScreenToDonationScreen(it))
-                viewModel.doneNavigating()
+        viewModel.navigateToConnectionError.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                this.findNavController().navigate(CharitiesScreenDirections.actionCharitiesScreenToConnectionErrorScreen())
+                viewModel.navigateToConnectionError()
             }
         })
 
-        viewModel.status.observe(viewLifecycleOwner, Observer { status ->
-            if (status == ApiStatus.LOADING) {
+        viewModel.navigateToServerError.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                this.findNavController().navigate(CharitiesScreenDirections.actionCharitiesScreenToServerErrorScreen())
+                viewModel.resetNavigateToServerError()
+            }
+        })
+
+        viewModel.navigateToDonation.observe(viewLifecycleOwner, Observer {
+            if (it && viewModel.selectedCharity.value != null) {
+                this.findNavController().navigate(CharitiesScreenDirections.actionCharitiesScreenToDonationScreen(viewModel.selectedCharity.value!!))
+                viewModel.resetNavigateToDonation()
+            }
+        })
+
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            if (it) {
                 dataBinding.progressBar.visibility = View.VISIBLE
             } else {
                 dataBinding.progressBar.visibility = View.GONE
-                if (status == ApiStatus.NoInternet) {
-                    this.findNavController().navigate(CharitiesScreenDirections.actionCharitiesScreenToConnectionErrorScreen())
-                    viewModel.doneNavigating()
-                } else if (status == ApiStatus.ERROR) {
-                    this.findNavController().navigate(CharitiesScreenDirections.actionCharitiesScreenToServerErrorScreen())
-                    viewModel.doneNavigating()
-                }
             }
         })
 
