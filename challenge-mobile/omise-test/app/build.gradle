@@ -83,9 +83,9 @@ dependencies {
 
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutine_test"
 
-    androidTestImplementation "org.mockito:mockito-core:$version_mockito"
+    testImplementation "org.mockito:mockito-core:$version_mockito"
 
-    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$version_dexmaker_mockito"
+    testImplementation "com.linkedin.dexmaker:dexmaker-mockito:$version_dexmaker_mockito"
 
     implementation "co.omise:omise-android:$version_omise"
 }
