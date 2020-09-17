@@ -73,5 +73,19 @@ dependencies {
 
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
 
-    implementation 'co.omise:omise-android:3.1.+'
+    testImplementation "org.hamcrest:hamcrest-all:$version_hamcrest"
+
+    testImplementation "androidx.test.ext:junit-ktx:$version_android_test_ext"
+
+    testImplementation "androidx.test:core-ktx:$version_android_test_core"
+
+    testImplementation "org.robolectric:robolectric:$version_roboletric"
+
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutine_test"
+
+    androidTestImplementation "org.mockito:mockito-core:$version_mockito"
+
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$version_dexmaker_mockito"
+
+    implementation "co.omise:omise-android:$version_omise"
 }
