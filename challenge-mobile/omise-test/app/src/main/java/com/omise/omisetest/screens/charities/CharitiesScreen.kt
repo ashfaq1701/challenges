@@ -44,13 +44,13 @@ class CharitiesScreen : BaseFragment() {
             inflater, R.layout.charities_screen, container, false)
         dataBinding.charitiesScreenViewModel = viewModel
 
+        // Load charities data
+        viewModel.loadCharities()
+
         val adapter = CharitiesAdapter(CharityListener { charityId ->
             viewModel.onCharityClicked(charityId)
         })
         dataBinding.charitiesList.adapter = adapter
-
-        // Load charities data
-        viewModel.loadCharities()
 
         viewModel.charities.observe(viewLifecycleOwner, Observer {
             it?.let {

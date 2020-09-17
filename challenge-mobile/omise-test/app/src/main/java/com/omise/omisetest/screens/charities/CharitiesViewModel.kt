@@ -11,9 +11,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
-import javax.inject.Inject
 
 class CharitiesViewModel(application: DonationApplication, val charitiesRepository: CharitiesRepository): AndroidViewModel(application) {
+    private var loaded = false
+
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
         get() = _status
@@ -47,6 +48,9 @@ class CharitiesViewModel(application: DonationApplication, val charitiesReposito
         get() = _navigateToDonation
 
     fun loadCharities() {
+        if (loaded) {
+            return
+        }
         startLoading()
         viewModelScope.launch {
             _status.value = ApiStatus.LOADING
@@ -55,6 +59,7 @@ class CharitiesViewModel(application: DonationApplication, val charitiesReposito
                     _charities.postValue(charitiesRepository.getCharities())
                     _status.postValue(ApiStatus.Success)
                     stopLoading()
+                    loaded = true
                 } catch (ex: Exception) {
                     when (ex) {
                         is IOException -> {
