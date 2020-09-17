@@ -5,6 +5,7 @@ import com.omise.omisetest.common.network.DonationsApiService
 import com.omise.omisetest.common.utils.DecimalDigitsInputFilter
 import com.omise.omisetest.screens.charities.CharitiesRepository
 import com.omise.omisetest.screens.donations.DonationRepository
+import com.omise.omisetest.common.utils.OmiseProvider
 import dagger.Module
 import dagger.Provides
 
@@ -17,9 +18,12 @@ class PresentationModule {
     fun getDecimalDigitsInputFilter() = DecimalDigitsInputFilter(10, 2)
 
     @Provides
+    fun getOmiseProvider() = OmiseProvider()
+
+    @Provides
     fun getCharitiesRepository(donationsApiService: DonationsApiService) = CharitiesRepository(donationsApiService)
 
     @Provides
-    fun getDonationRepository(donationsApiService: DonationsApiService, omiseClient: Client) = DonationRepository(donationsApiService, omiseClient)
+    fun getDonationRepository(donationsApiService: DonationsApiService, omiseClient: Client, omiseProvider: OmiseProvider) = DonationRepository(donationsApiService, omiseClient, omiseProvider)
 
 }

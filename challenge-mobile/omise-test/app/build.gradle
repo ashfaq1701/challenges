@@ -87,5 +87,9 @@ dependencies {
 
     testImplementation "com.linkedin.dexmaker:dexmaker-mockito:$version_dexmaker_mockito"
 
+    testImplementation "org.mockito:mockito-inline:$version_mockito_inline"
+
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$version_mockito_kotlin"
+
     implementation "co.omise:omise-android:$version_omise"
 }

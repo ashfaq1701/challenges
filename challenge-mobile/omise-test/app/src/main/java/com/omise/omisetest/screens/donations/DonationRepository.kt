@@ -8,8 +8,9 @@ import com.omise.omisetest.common.globals.ApiStatus
 import com.omise.omisetest.common.models.Charge
 import com.omise.omisetest.common.models.CreditCard
 import com.omise.omisetest.common.network.DonationsApiService
+import com.omise.omisetest.common.utils.OmiseProvider
 
-class DonationRepository(private val donationsApiService: DonationsApiService, private val omiseClient: Client) {
+class DonationRepository(private val donationsApiService: DonationsApiService, private val omiseClient: Client, private val omiseProvider: OmiseProvider) {
     suspend fun charge(charge: Charge): String {
         return donationsApiService.createDonation(charge.toNetworkLevel())
     }
@@ -21,17 +22,9 @@ class DonationRepository(private val donationsApiService: DonationsApiService, p
             expirationMonth = creditCard.expMonth,
             expirationYear = creditCard.expYear,
             securityCode = creditCard.securityCode)
-        val request = Token.CreateTokenRequestBuilder(cardParam).build()
+        val request = omiseProvider.createTokenRequestBuilder(cardParam)
 
-        omiseClient.send(request, object : RequestListener<Token>{
-            override fun onRequestSucceed(model: Token) {
-                tokenCallback(model.id)
-            }
-
-            override fun onRequestFailed(throwable: Throwable) {
-                tokenCallback(null)
-            }
-        })
+        omiseClient.send(request, omiseProvider.getRequestListener(tokenCallback))
 
         return ApiStatus.Success
     }

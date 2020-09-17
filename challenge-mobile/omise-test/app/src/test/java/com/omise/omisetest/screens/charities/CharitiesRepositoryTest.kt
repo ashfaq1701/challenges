@@ -1,7 +1,6 @@
 package com.omise.omisetest.screens.charities
 
 import com.omise.omisetest.common.network.Charity
-import com.omise.omisetest.common.models.Charity as DomainCharity
 import com.omise.omisetest.common.network.DonationsApiService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -12,14 +11,14 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.*
-import timber.log.Timber
+import com.omise.omisetest.common.models.Charity as DomainCharity
 
 @ExperimentalCoroutinesApi
 class CharitiesRepositoryTest {
     private val charitiesResponse = mutableListOf(
         Charity(id = 1, name = "Charity 1", logoUrl = "https://abc.com/logo1.png"),
         Charity(id = 2, name = "Charity 2", logoUrl = "https://abc.com/logo2.png"),
-        Charity(id = 3, name = "Charity 1", logoUrl = "https://abc.com/logo3.png")
+        Charity(id = 3, name = "Charity 3", logoUrl = "https://abc.com/logo3.png")
     )
 
     private lateinit var donationsApiService: DonationsApiService
@@ -52,5 +51,4 @@ class CharitiesRepositoryTest {
     fun resetMocks() {
         reset(donationsApiService)
     }
-
 }
