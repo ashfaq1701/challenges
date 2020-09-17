@@ -105,6 +105,7 @@ class DonationViewModel(application: DonationApplication, val donationRepository
             formSubmitted.postValue(false)
             _showProgressBar.postValue(false)
             _status.postValue(ApiStatus.ERROR)
+            _navigateToServerErrorScreen.postValue(true)
         } else {
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {

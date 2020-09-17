@@ -46,10 +46,10 @@ class CharitiesViewModel(application: DonationApplication, val charitiesReposito
     val navigateToDonation: LiveData<Boolean>
         get() = _navigateToDonation
 
-    init {
+    fun loadCharities() {
+        startLoading()
         viewModelScope.launch {
             _status.value = ApiStatus.LOADING
-            startLoading()
             withContext(Dispatchers.IO) {
                 try {
                     _charities.postValue(charitiesRepository.getCharities())

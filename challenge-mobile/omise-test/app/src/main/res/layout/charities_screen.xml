@@ -20,14 +20,6 @@
             android:gravity="center"
             android:text="@string/no_charity_available"
             android:visibility="gone" />
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:indeterminate="true"
-            android:indeterminateTint="#DDD"
-            android:indeterminateTintMode="src_in"
-            android:visibility="invisible" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/charitiesList"
@@ -35,5 +27,14 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/home_margins"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminate="true"
+            android:indeterminateTint="#DDD"
+            android:indeterminateTintMode="src_in"
+            android:visibility="visible" />
     </FrameLayout>
 </layout>

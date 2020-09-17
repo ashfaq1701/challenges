@@ -49,6 +49,9 @@ class CharitiesScreen : BaseFragment() {
         })
         dataBinding.charitiesList.adapter = adapter
 
+        // Load charities data
+        viewModel.loadCharities()
+
         viewModel.charities.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
