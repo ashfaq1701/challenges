@@ -51,8 +51,14 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    testImplementation 'androidx.test.ext:junit:1.1.2'
+    testImplementation "androidx.test.ext:junit-ktx:$version_android_test_ext"
+    testImplementation "androidx.test:core-ktx:$version_android_test_core"
+    testImplementation "androidx.arch.core:core-testing:$version_arch_testing"
 
     implementation "com.android.support:multidex:$version_multidex"
 
@@ -74,10 +80,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
 
     testImplementation "org.hamcrest:hamcrest-all:$version_hamcrest"
-
-    testImplementation "androidx.test.ext:junit-ktx:$version_android_test_ext"
-
-    testImplementation "androidx.test:core-ktx:$version_android_test_core"
 
     testImplementation "org.robolectric:robolectric:$version_roboletric"
 

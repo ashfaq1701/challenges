@@ -1,5 +1,6 @@
 package com.omise.omisetest.screens.charities
 
+import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,14 +13,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
-class CharitiesViewModel(application: DonationApplication, val charitiesRepository: CharitiesRepository): AndroidViewModel(application) {
+class CharitiesViewModel(application: Application, val charitiesRepository: CharitiesRepository): AndroidViewModel(application) {
     private var loaded = false
 
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
         get() = _status
 
-    private val _charities = MutableLiveData<List<Charity>>()
+    private val _charities = MutableLiveData<List<Charity>>(listOf())
     val charities: LiveData<List<Charity>>
         get() = _charities
 
@@ -51,8 +52,8 @@ class CharitiesViewModel(application: DonationApplication, val charitiesReposito
         if (loaded) {
             return
         }
-        startLoading()
         viewModelScope.launch {
+            startLoading()
             _status.value = ApiStatus.LOADING
             withContext(Dispatchers.IO) {
                 try {

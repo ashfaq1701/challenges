@@ -18,6 +18,7 @@ buildscript {
         version_mockito_inline="2.13.0"
         version_omise="3.1.+"
         version_mockito_kotlin="2.2.0"
+        version_arch_testing="2.1.0"
     }
     repositories {
         google()

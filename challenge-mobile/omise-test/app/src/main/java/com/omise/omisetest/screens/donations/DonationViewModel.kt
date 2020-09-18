@@ -1,5 +1,6 @@
 package com.omise.omisetest.screens.donations
 
+import android.app.Application
 import androidx.lifecycle.*
 import com.omise.omisetest.DonationApplication
 import com.omise.omisetest.common.globals.ApiStatus
@@ -11,14 +12,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
-class DonationViewModel(application: DonationApplication, val donationRepository: DonationRepository, val charity: Charity): AndroidViewModel(application) {
+class DonationViewModel(application: Application, val donationRepository: DonationRepository, val charity: Charity): AndroidViewModel(application) {
     private val _cardNumber = MutableLiveData<String>()
     val cardHolderName = MutableLiveData<String>()
     private val _cardExpiryMonth = MutableLiveData<Int>()
     private val _cardExpiryYear = MutableLiveData<Int>()
     val cardSecurityCode = MutableLiveData<String>()
     val amountTxt = MutableLiveData<String>()
-    private val amount: LiveData<Float> = Transformations.map(amountTxt) {
+    val amount: LiveData<Float> = Transformations.map(amountTxt) {
         if (it.isEmpty()) {
             0F
         } else {
@@ -30,7 +31,7 @@ class DonationViewModel(application: DonationApplication, val donationRepository
         get() = _status
 
     private val formFieldComplexLiveData = CreditCardComplexLiveData(_cardNumber, cardHolderName, _cardExpiryMonth, _cardExpiryYear, cardSecurityCode, amount)
-    private val formValid: LiveData<Boolean> = Transformations.switchMap(formFieldComplexLiveData) { liveData ->
+    val formValid: LiveData<Boolean> = Transformations.switchMap(formFieldComplexLiveData) { liveData ->
         MutableLiveData<Boolean>((liveData.first != null) &&
                 liveData.first.isNotEmpty() &&
                 (liveData.second != null) &&
@@ -100,7 +101,7 @@ class DonationViewModel(application: DonationApplication, val donationRepository
         _cardNumber.value = cardNumber
     }
 
-    private fun createTokenCallback(token: String?) {
+    fun createTokenCallback(token: String?) {
         if (token == null) {
             formSubmitted.postValue(false)
             _showProgressBar.postValue(false)
