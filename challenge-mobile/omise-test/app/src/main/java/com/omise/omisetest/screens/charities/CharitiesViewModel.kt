@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import java.io.IOException
 
 class CharitiesViewModel(application: Application, val charitiesRepository: CharitiesRepository): AndroidViewModel(application) {
-    private var loaded = false
+    var loaded = false
 
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>

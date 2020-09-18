@@ -55,7 +55,7 @@ class CharitiesScreen : BaseFragment() {
         viewModel.charities.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
-                if (it.isEmpty()) {
+                if (it.isEmpty() && viewModel.loaded) {
                     dataBinding.noItemAvailable.visibility = View.VISIBLE
                     dataBinding.charitiesList.visibility = View.GONE
                 } else {
